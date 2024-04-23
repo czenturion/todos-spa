@@ -26,12 +26,16 @@ const App = () =>  {
     setTasks(tasks.filter(task => task.id !== id))
   }
 
+  const handleTaskComplete = (id: number) => {
+    setTasks(tasks.map(task => task.id === id ? {...task, isCompleted: !task.isCompleted} : task))
+  }
+
   return (
     <div className="App">
       <div className="background"></div>
       <div className="card">
         <TodoInput handleTaskAdd={handleTaskAdd} onChange={e => setNewTask(e.target.value)} newTask={newTask}/>
-        <TodoList tasks={tasks} handleTaskDelete={handleTaskDelete}/>
+        <TodoList tasks={tasks} handleTaskDelete={handleTaskDelete} handleTaskComplete={handleTaskComplete}/>
       </div>
     </div>
   )

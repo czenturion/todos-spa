@@ -22,7 +22,7 @@ body,
   left: 0;
   width: 100%;
   height: 100%;
-  background: transparent linear-gradient(45deg, #6600FF 0%, #00CC99 50%) 0% 0% no-repeat padding-box;
+  background: transparent linear-gradient(45deg, #6600FF 0%, #00CC99 50%) 0 0 no-repeat padding-box;
 }
 
 .card {
@@ -41,6 +41,11 @@ body,
 
 .text {
   overflow: hidden;
+}
+
+.manage {
+  width: 38px;
+  height: 38px;
 }
 
 .btn-toolbar {
