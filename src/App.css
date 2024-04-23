@@ -2,12 +2,6 @@
   box-sizing: border-box;
 }
 
-html,
-body,
-#root {
-  height: 100%;
-}
-
 .App {
   padding: 20px 10px;
   display: flex;
