@@ -9,9 +9,20 @@ export type Task = {
   isCompleted: boolean
 }
 
+const initialTask = {
+  editMode: false,
+  id: 0,
+  task: '',
+  isCompleted: false
+}
+
 const App = () =>  {
   const [tasks, setTasks] = useState<Task[]>([])
   const [newTask, setNewTask] = useState<string>('')
+  const [
+    editMode,
+    setEditMode] = useState({mode: false, id: 0})
+  const [editedTask, setEditedTask] = useState('')
 
   const handleTaskAdd = (e: any) => {
     e.preventDefault()
@@ -22,12 +33,33 @@ const App = () =>  {
     }
   }
 
-  const handleTaskDelete = (id: number) => {
-    setTasks(tasks.filter(task => task.id !== id))
+  const handleTaskComplete = (id: number) => {
+    if (!editMode.mode) {
+      setTasks(tasks.map(task => task.id === id ? {...task, isCompleted: !task.isCompleted} : task))
+    } else {
+      setEditMode({
+        mode: false,
+        id: -1,
+      })
+    }
   }
 
-  const handleTaskComplete = (id: number) => {
-    setTasks(tasks.map(task => task.id === id ? {...task, isCompleted: !task.isCompleted} : task))
+  const updateTask = (id: number) => {
+    const index = tasks.findIndex(item => item.id === id)
+    if (index !== -1) {
+      const editedTasks = [...tasks]
+      editedTasks[index] = {id: id, task: editedTask, isCompleted: false}
+      setTasks(editedTasks)
+      setEditMode({mode: false, id: -1})
+    }
+  }
+
+  const handleTaskEdit = (id: number) => {
+    updateTask(id)
+  }
+
+  const handleTaskDelete = (id: number) => {
+    setTasks(tasks.filter(task => task.id !== id))
   }
 
   useEffect(() => {
@@ -45,8 +77,20 @@ const App = () =>  {
     <div className="App">
       <div className="background"></div>
       <div className="card">
-        <TodoInput handleTaskAdd={handleTaskAdd} onChange={e => setNewTask(e.target.value)} newTask={newTask}/>
-        <TodoList tasks={tasks} handleTaskDelete={handleTaskDelete} handleTaskComplete={handleTaskComplete}/>
+        <TodoInput
+          handleTaskAdd={handleTaskAdd}
+          onChange={e => setNewTask(e.target.value)}
+          newTask={newTask}
+        />
+        <TodoList
+          tasks={tasks}
+          handleTaskDelete={handleTaskDelete}
+          handleTaskComplete={handleTaskComplete}
+          handleTaskEdit={handleTaskEdit}
+          setEditMode={setEditMode}
+          editMode={editMode}
+          setEditedTask={setEditedTask}
+        />
       </div>
     </div>
   )

@@ -3,11 +3,26 @@ import { Task } from '../../App'
 
 type Props = {
   tasks: Task[]
-  handleTaskDelete: (id: number) => void
   handleTaskComplete: (id: number) => void
+  handleTaskEdit: (id: number) => void
+  handleTaskDelete: (id: number) => void
+  setEditMode: (elm: any) => void
+  editMode: {
+    mode: boolean,
+    id: number
+  }
+  setEditedTask: (val: string) => void
 }
 
-const TodoList: FC<Props> = ({ tasks, handleTaskDelete, handleTaskComplete }) => {
+const TodoList: FC<Props> = ({
+                               tasks,
+                               handleTaskComplete,
+                               handleTaskEdit,
+                               handleTaskDelete,
+                               setEditMode,
+                               editMode,
+                               setEditedTask
+                               }) => {
   const [filter, setFilter] = useState<string>('')
 
   const filterFn = (filter: string, task: Task) => {
@@ -24,8 +39,8 @@ const TodoList: FC<Props> = ({ tasks, handleTaskDelete, handleTaskComplete }) =>
   return <div className="container">
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <ul className="navbar-nav mx-auto">
-        <li className={`nav-item mr-1 px-1 rounded ${filter === '' ? 'active' : ''}`} aria-current="page" onClick={() => setFilter('')}>Все</li>
-        <li className={`nav-item mr-1 px-1 rounded ${filter === 'incomplete' ? 'active' : ''}`} onClick={() => setFilter('incomplete')}>Активные</li>
+        <li className={`nav-item mr-2 px-1 rounded ${filter === '' ? 'active' : ''}`} aria-current="page" onClick={() => setFilter('')}>Все</li>
+        <li className={`nav-item mr-2 px-1 rounded ${filter === 'incomplete' ? 'active' : ''}`} onClick={() => setFilter('incomplete')}>Активные</li>
         <li className={`nav-item px-1 rounded ${filter === 'completed' ? 'active' : ''}`} onClick={() => setFilter('completed')}>Выполненные</li>
       </ul>
     </nav>
@@ -33,13 +48,30 @@ const TodoList: FC<Props> = ({ tasks, handleTaskDelete, handleTaskComplete }) =>
       {tasks.length > 0 ? tasks.filter(task => filterFn(filter, task)).map((task, index) => (
         <li key={task.id}
             className={`list-group-item d-flex justify-content-between align-items-center ${task.isCompleted ? 'list-group-item-success' : ''}`}>
-          <div className="text">
-            {index + 1 + ". " + task.task}
-          </div>
+          {
+            !editMode?.mode || editMode.id !== task.id
+              ? <div className="text">
+                {index + 1 + ". " + task.task}
+              </div>
+              : <textarea
+                className="form-control"
+                id="exampleFormControlTextarea1"
+                rows={3}
+                defaultValue={task.task}
+                onChange={s => {
+                  setEditMode({
+                    mode: true,
+                    id: task.id
+                  })
+                }}
+              ></textarea>
+          }
           <div className="btn-toolbar ml-2">
-            <button className="btn manage btn-outline-success mr-2 " onClick={() => handleTaskComplete(task.id)}>✓
+            <button className="btn manage btn-outline-success" onClick={() => handleTaskComplete(task.id)}>✓
             </button>
-            <button className="btn manage btn-outline-danger" onClick={() => handleTaskDelete(task.id)}>X</button>
+            <button className="btn manage btn-outline-info ml-1" onClick={() => setEditMode({id: task.id, mode: true})}><span
+              className="fa fa-pencil"></span></button>
+            <button className="btn manage btn-outline-danger ml-1" onClick={() => handleTaskDelete(task.id)}>X</button>
           </div>
         </li>
       )) : <li className="list-group-item d-flex justify-content-between align-items-center">Задач нету</li>}
