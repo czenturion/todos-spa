@@ -37,6 +37,7 @@ const App = () =>  {
     if (!editMode.mode) {
       setTasks(tasks.map(task => task.id === id ? {...task, isCompleted: !task.isCompleted} : task))
     } else {
+      handleTaskEdit(id)
       setEditMode({
         mode: false,
         id: -1,

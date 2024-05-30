@@ -63,6 +63,7 @@ const TodoList: FC<Props> = ({
                     mode: true,
                     id: task.id
                   })
+                  setEditedTask(s.target.value)
                 }}
               ></textarea>
           }
