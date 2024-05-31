@@ -2,19 +2,10 @@
   box-sizing: border-box;
 }
 
-.App {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-items: center;
-}
-
 .background {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
   background: transparent linear-gradient(45deg, #6600FF 0%, #00CC99 50%) 0 0 no-repeat padding-box;
 }
 
@@ -26,18 +17,14 @@
   box-shadow: 10px 10px 20px 10px rgba(0,0,0,0.75);
 }
 
-.container {
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
+/* bootstrap 4.0.0 doesnt have */
 .text {
   overflow: hidden;
 }
 
-.manage {
-  width: 38px;
-  height: 38px;
+.btn-manage {
+  width: 36px;
+  height: 36px;
 }
 
 .btn-toolbar {
@@ -48,22 +35,22 @@
   padding: .5rem 0;
 }
 
-.navbar-nav {
-  flex-direction: row;
-}
-
 .nav-item {
   cursor: pointer;
 }
 
 .active {
   color: gray;
-  -webkit-box-shadow: 0 0 5px 1px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0 0 5px 1px rgba(0,0,0,0.75);
-  box-shadow: 0 0 5px 1px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0 6px 5px -3px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0 6px 5px -3px rgba(0,0,0,0.75);
+  box-shadow: 0 6px 5px -3px rgba(0,0,0,0.75);
 }
 
 @media screen and (max-width: 600px) {
+  .App {
+    margin-top: 0 !important;
+  }
+
   .card {
     border-radius: 0;
   }

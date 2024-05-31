@@ -75,8 +75,8 @@ const App = () =>  {
   }, [tasks])
 
   return (
-    <div className="App">
-      <div className="background"></div>
+    <div className="App d-flex flex-column align-items-center justify-items-center mt-2">
+      <div className="background w-100 h-100"></div>
       <div className="card">
         <TodoInput
           handleTaskAdd={handleTaskAdd}

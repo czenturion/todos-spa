@@ -8,7 +8,7 @@ type Props = {
 
 const TodoInput: FC<Props> = ({ onChange, handleTaskAdd, newTask }) => {
 
-  return <form className="container" onSubmit={handleTaskAdd}>
+  return <form className="container pt-2" onSubmit={handleTaskAdd}>
     <div className="input-group">
       <input type="text" className='form-control' placeholder='Добавь задачу' onChange={onChange} value={newTask}/>
       <div className="input-group-append">
