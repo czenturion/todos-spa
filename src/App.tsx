@@ -1,62 +1,43 @@
 import React, { useEffect, useState } from 'react'
-import './App.css'
-import TodoInput from "./components/todo-input/todo-input"
-import TodoList from "./components/todo-list/todo-list"
-
-export type Task = {
-  id: number
-  task: string
-  isCompleted: boolean
-}
-
-const initialTask = {
-  editMode: false,
-  id: 0,
-  task: '',
-  isCompleted: false
-}
+import '@/App.css'
+import TodoInput from '@/components/todo-input/TodoInput'
+import TodoList from '@/components/todo-list/TodoList'
+import { editModeObjCreator } from '@/utils/helpers/objectCreator'
+import { EditObjType, TaskType } from '@/types/types'
 
 const App = () =>  {
-  const [tasks, setTasks] = useState<Task[]>([])
-  const [newTask, setNewTask] = useState<string>('')
+  const [
+    tasks,
+    setTasks
+  ] = useState<TaskType[]>([])
+  const [
+    task,
+    setTask
+  ] = useState<string>('')
   const [
     editMode,
-    setEditMode] = useState({mode: false, id: 0})
-  const [editedTask, setEditedTask] = useState('')
+    setEditMode
+  ] = useState<EditObjType>(editModeObjCreator())
 
   const handleTaskAdd = (e: any) => {
     e.preventDefault()
-    if (newTask) {
+    if (task) {
       const id = tasks.length > 0 ? Math.max(...tasks.map(t => t.id)) + 1 : 1
-      setTasks([...tasks, {id, task: newTask, isCompleted: false}])
-      setNewTask('')
+      setTasks([...tasks, {id, task, isCompleted: false}])
+      setTask('')
     }
   }
 
-  const handleTaskComplete = (id: number) => {
+  const handleTaskCompleteOrUpdate = (id: number) => {
     if (!editMode.mode) {
       setTasks(tasks.map(task => task.id === id ? {...task, isCompleted: !task.isCompleted} : task))
     } else {
-      handleTaskEdit(id)
-      setEditMode({
-        mode: false,
-        id: -1,
-      })
-    }
-  }
-
-  const updateTask = (id: number) => {
-    const index = tasks.findIndex(item => item.id === id)
-    if (index !== -1) {
+      const index = tasks.findIndex(item => item.id === id)
       const editedTasks = [...tasks]
-      editedTasks[index] = {id: id, task: editedTask, isCompleted: false}
+      editedTasks[index] = {id: id, task: editMode.task, isCompleted: false}
       setTasks(editedTasks)
-      setEditMode({mode: false, id: -1})
+      setEditMode(editModeObjCreator())
     }
-  }
-
-  const handleTaskEdit = (id: number) => {
-    updateTask(id)
   }
 
   const handleTaskDelete = (id: number) => {
@@ -80,17 +61,15 @@ const App = () =>  {
       <div className="card">
         <TodoInput
           handleTaskAdd={handleTaskAdd}
-          onChange={e => setNewTask(e.target.value)}
-          newTask={newTask}
+          onChange={e => setTask(e.target.value)}
+          task={task}
         />
         <TodoList
           tasks={tasks}
           handleTaskDelete={handleTaskDelete}
-          handleTaskComplete={handleTaskComplete}
-          handleTaskEdit={handleTaskEdit}
+          handleTaskCompleteOrUpdate={handleTaskCompleteOrUpdate}
           setEditMode={setEditMode}
           editMode={editMode}
-          setEditedTask={setEditedTask}
         />
       </div>
     </div>

@@ -1,16 +1,16 @@
-import React, {FC, FormEvent} from 'react'
+import React, { FC, FormEvent } from 'react'
 
-type Props = {
+type PropsType = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   handleTaskAdd: (e: FormEvent<HTMLFormElement>) => void
-  newTask: string
+  task: string
 }
 
-const TodoInput: FC<Props> = ({ onChange, handleTaskAdd, newTask }) => {
+const TodoInput: FC<PropsType> = ({ onChange, handleTaskAdd, task }) => {
 
   return <form className="container pt-2" onSubmit={handleTaskAdd}>
     <div className="input-group">
-      <input type="text" className='form-control' placeholder='Добавь задачу' onChange={onChange} value={newTask}/>
+      <input type="text" className='form-control' placeholder='Добавь задачу' onChange={onChange} value={task}/>
       <div className="input-group-append">
         <button className="btn btn-outline-secondary">Добавить</button>
       </div>
