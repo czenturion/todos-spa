@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/todos-spa/static/css/main.50a741a1.css",
+    "main.js": "/todos-spa/static/js/main.a85ab6fb.js",
+    "static/js/453.e66df55e.chunk.js": "/todos-spa/static/js/453.e66df55e.chunk.js",
+    "index.html": "/todos-spa/index.html",
+    "main.50a741a1.css.map": "/todos-spa/static/css/main.50a741a1.css.map",
+    "main.a85ab6fb.js.map": "/todos-spa/static/js/main.a85ab6fb.js.map",
+    "453.e66df55e.chunk.js.map": "/todos-spa/static/js/453.e66df55e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.50a741a1.css",
+    "static/js/main.a85ab6fb.js"
+  ]
+}
