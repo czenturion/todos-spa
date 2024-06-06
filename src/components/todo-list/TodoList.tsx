@@ -40,7 +40,7 @@ const TodoList: FC<PropsType> = ({
                 </div>
                 : <textarea
                   className="form-control"
-                  id="exampleFormControlTextarea1"
+                  placeholder="Введите задачу..."
                   rows={3}
                   defaultValue={task.task}
                   onChange={s => {

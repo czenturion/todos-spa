@@ -1,25 +1,35 @@
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import TodoInput from '@/components/todo-input/TodoInput';
+import React from 'react'
+import { render, fireEvent, waitFor } from '@testing-library/react'
+import App from '@/App'
+import { createTaskGenId } from '@/utils/helpers/createTaskGenId'
 
-test('TodoInput renders correctly', () => {
-  const { getByPlaceholderText } = render(<TodoInput onChange={() => {}} handleTaskAdd={() => {}} task="" />);
-  const inputElement = getByPlaceholderText('Добавь задачу');
-  expect(inputElement).toBeInTheDocument();
-});
+test('Adding a task updates tasks state', async () => {
+  const { getByPlaceholderText, getByText } = render(<App />)
+  const inputElement = getByPlaceholderText('Добавь задачу') as HTMLInputElement
+  const addButton = getByText('Добавить')
 
-test('TodoInput handles input change', () => {
-  const handleChange = jest.fn();
-  const { getByPlaceholderText } = render(<TodoInput onChange={handleChange} handleTaskAdd={() => {}} task="" />);
-  const inputElement = getByPlaceholderText('Добавь задачу');
-  fireEvent.change(inputElement, { target: { value: 'New Task' } });
-  expect(handleChange).toHaveBeenCalledTimes(1);
-});
+  const task1 = createTaskGenId('task1')
+  const task2 = createTaskGenId('task2')
 
-test('TodoInput handles form submission', () => {
-  const handleAdd = jest.fn();
-  const { getByText } = render(<TodoInput onChange={() => {}} handleTaskAdd={handleAdd} task="" />);
-  const addButton = getByText('Добавить');
-  fireEvent.click(addButton);
-  expect(handleAdd).toHaveBeenCalledTimes(1);
-});
+  fireEvent.change(inputElement, { target: { value: task1.task } })
+  expect(inputElement.value).toBe(task1.task)
+  fireEvent.click(addButton)
+
+
+  await waitFor(() => {
+    const allTasks = localStorage.getItem('tasks')
+    const parsedTasks = allTasks ? JSON.parse(allTasks) : []
+    expect(parsedTasks).toHaveLength(1)
+    expect(parsedTasks[0]).toEqual(task1)
+  })
+
+  fireEvent.change(inputElement, { target: { value: task2.task } })
+  fireEvent.click(addButton)
+
+  await waitFor(() => {
+    const allTasks = localStorage.getItem('tasks')
+    const parsedTasks = allTasks ? JSON.parse(allTasks) : []
+    expect(parsedTasks).toHaveLength(2)
+    expect(parsedTasks[1]).toEqual(task2)
+  })
+})
