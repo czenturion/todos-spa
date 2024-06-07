@@ -11,7 +11,7 @@ test('Adding a task updates tasks state', async () => {
   const task1 = createTaskGenId('task1')
   const task2 = createTaskGenId('task2')
 
-  fireEvent.change(inputElement, { target: { value: task1.task } })
+  fireEvent.change(inputElement, {target: {value: task1.task}})
   expect(inputElement.value).toBe(task1.task)
   fireEvent.click(addButton)
 
@@ -23,7 +23,7 @@ test('Adding a task updates tasks state', async () => {
     expect(parsedTasks[0]).toEqual(task1)
   })
 
-  fireEvent.change(inputElement, { target: { value: task2.task } })
+  fireEvent.change(inputElement, {target: {value: task2.task}})
   fireEvent.click(addButton)
 
   await waitFor(() => {
