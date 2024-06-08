@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import '@/App.css'
 import TodoInput from '@/components/todo-input/TodoInput'
 import TodoList from '@/components/todo-list/TodoList'
-import { editModeObjCreator } from '@/utils/helpers/objectCreator'
-import { EditObjType, TaskType } from '@/types/types'
+import { editModeObjCreator } from '@/shared/helpers/objectCreator'
+import { EditObjType, TaskType } from '@/shared/types/types'
 
 const App = () =>  {
   const [

@@ -2,7 +2,7 @@ import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import App from '@/App'
 import TodoList from '@/components/todo-list/TodoList'
-import { createTaskGenId } from '@/utils/helpers/createTaskGenId'
+import { createTaskGenId } from '@/shared/helpers/createTaskGenId'
 
 test('Exists tasks renders correctly', () => {
   const tasks = [
@@ -13,7 +13,7 @@ test('Exists tasks renders correctly', () => {
     createTaskGenId('5'),
   ]
 
-  const { container, queryByText, queryAllByText } = render(
+  const { container, queryByText } = render(
     <TodoList
       tasks={tasks}
       handleTaskCompleteOrUpdate={jest.fn()}

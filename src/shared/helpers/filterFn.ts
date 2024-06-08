@@ -1,4 +1,4 @@
-import { TaskType } from '@/types/types'
+import { TaskType } from '@/shared/types/types'
 
 export const filterFn = (filter: string, task: TaskType) => {
   switch (filter) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
 import App from '@/App'
-import { createTaskGenId } from '@/utils/helpers/createTaskGenId'
+import { createTaskGenId } from '@/shared/helpers/createTaskGenId'
 
 test('Adding a task updates tasks state', async () => {
   const { getByPlaceholderText, getByText } = render(<App />)
@@ -14,7 +14,6 @@ test('Adding a task updates tasks state', async () => {
   fireEvent.change(inputElement, {target: {value: task1.task}})
   expect(inputElement.value).toBe(task1.task)
   fireEvent.click(addButton)
-
 
   await waitFor(() => {
     const allTasks = localStorage.getItem('tasks')

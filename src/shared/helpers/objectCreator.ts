@@ -1,4 +1,4 @@
-import { EditObjType } from '@/types/types'
+import { EditObjType } from '@/shared/types/types'
 
 export const editModeObjCreator = (
   mode = false,
