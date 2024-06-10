@@ -26,7 +26,6 @@ test('Exists tasks renders correctly', () => {
   // Testing amount of rendered tasks
   const todoListContainer = container.querySelectorAll('.text')
   expect(todoListContainer).toHaveLength(tasks.length)
-  console.log(todoListContainer)
 
   tasks.forEach((task, index) => {
     const taskText = `${index + 1}. ${task.task}`

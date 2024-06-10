@@ -23,6 +23,7 @@ const TodoList: FC<TodoListPropsType> = ({
             .filter(task => filterFn(filter, task))
             .map((task, index) => (
               <Task
+                key={index}
                 task={task}
                 index={index}
                 editMode={editMode}

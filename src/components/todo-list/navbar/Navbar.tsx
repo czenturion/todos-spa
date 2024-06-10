@@ -10,19 +10,19 @@ const Navbar: FC<NavbarPropsType> = ({
                 }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <ul className="navbar-nav mx-auto flex-row flex-wrap align-items-center">
+      <ul className="navbar-nav mx-auto flex-row flex-wrap justify-content-around">
         <li className={`nav-item px-1 rounded ${filter === filterState.all ? 'active' : ''}`}
             aria-current="page"
             onClick={() => setFilter(filterState.all)}
         >
           Все - {tasks.length}
         </li>
-        <li className={`nav-item ml-3 px-1 rounded ${filter === filterState.incomplete ? 'active' : ''}`}
+        <li className={`nav-item px-1 ml-2 rounded ${filter === filterState.incomplete ? 'active' : ''}`}
             onClick={() => setFilter(filterState.incomplete)}
         >
           Активные - {tasks.filter(task => filterFn(filterState.incomplete, task)).length}
         </li>
-        <li className={`nav-item ml-3 px-1 rounded ${filter === filterState.completed ? 'active' : ''}`}
+        <li className={`nav-item px-1 ml-2 rounded ${filter === filterState.completed ? 'active' : ''}`}
             onClick={() => setFilter(filterState.completed)}
         >
           Выполненные - {tasks.filter(task => filterFn(filterState.completed, task)).length}
